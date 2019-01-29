@@ -13,6 +13,7 @@ use SilverStripe\Core\Flushable;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\GraphQL\Auth\Handler;
 use SilverStripe\GraphQL\Scaffolding\StaticSchema;
+use SilverStripe\ORM\Connect\DatabaseException;
 use SilverStripe\Security\Member;
 use SilverStripe\Security\Permission;
 use SilverStripe\Security\SecurityToken;
@@ -71,7 +72,17 @@ class Controller extends BaseController implements Flushable
             // is a massive architectural change.
             StaticSchema::reset();
 
-            $this->manager->configure();
+            try {
+                $this->manager->configure();
+            } catch (DatabaseException $ex) {
+                $message = $ex->getMessage();
+                if (!strpos($message, 'No database selected') !== false
+                    && !preg_match('/\s*(table|relation) .* does(n\'t| not) exist/i', $message)
+                ) {
+                    throw $ex;
+                }
+            }
+
         }
     }
 
