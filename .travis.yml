@@ -14,9 +14,6 @@ addons:
       - chromium-chromedriver
       - chromium-browser
 
-install:
-  - sudo apt-get remove -y --purge google-chrome-stable || true
-
 env:
   global:
     - COMPOSER_ROOT_VERSION=3.x-dev
@@ -57,6 +54,12 @@ before_script:
   - if [[ $BEHAT_TEST ]]; then composer require silverstripe/recipe-testing:^1 silverstripe/recipe-cms $RECIPE_CMS_VERSION --prefer-source --no-update ; fi
   - composer update
 
+# Remove preinstalled Chrome (google-chrome)
+# this would conflict with our chromium-browser installation
+# and its version is incompatible with chromium-chromedriver
+  - sudo apt-get remove -y --purge google-chrome-stable || true
+
+# Start behat services
   - if [[ $BEHAT_TEST ]]; then mkdir artifacts; fi
   - if [[ $BEHAT_TEST ]]; then cp composer.lock artifacts/; fi
   - if [[ $BEHAT_TEST ]]; then sh -e /etc/init.d/xvfb start; sleep 3; fi
