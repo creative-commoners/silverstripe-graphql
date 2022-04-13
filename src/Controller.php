@@ -522,7 +522,7 @@ class Controller extends BaseController implements Flushable
                         /* @var Controller $inst */
                         $inst->processTypeCaching();
                     }
-                } catch (DatabaseException $e) {
+                } catch (Exception $e) {
                     // Allow failures on table doesn't exist or no database selected as we're flushing in first DB build
                     $messageByLine = explode(PHP_EOL, $e->getMessage());
 
