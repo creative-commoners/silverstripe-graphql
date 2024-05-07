@@ -1,9 +1,9 @@
 name: Keepalive
 
 on:
-  # At 2:10 AM UTC, on day 11 of the month
+  # At 4:20 PM UTC, on day 5 of the month
   schedule:
-    - cron: '10 2 11 * *'
+    - cron: '20 16 5 * *'
   workflow_dispatch:
 
 jobs:
