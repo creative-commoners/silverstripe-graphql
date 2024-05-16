@@ -12,7 +12,7 @@ use SilverStripe\GraphQL\Controller;
  */
 class ClientConfigProvider extends Extension
 {
-    public function updateClientConfig(array &$config): void
+    protected function updateClientConfig(array &$config): void
     {
         if (!isset($config['graphql'])) {
             $config['graphql'] = [];
