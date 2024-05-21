@@ -28,7 +28,7 @@ class QueryRecorderExtension extends DataExtension
     /**
      * Record query against a given class.
      */
-    public function augmentDataQueryCreation(SQLSelect $select, DataQuery $query): void
+    protected function augmentDataQueryCreation(SQLSelect $select, DataQuery $query): void
     {
         // Skip if disabled
         if (empty($this->levels)) {
