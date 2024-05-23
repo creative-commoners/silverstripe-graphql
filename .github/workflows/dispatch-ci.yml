@@ -1,9 +1,9 @@
 name: Dispatch CI
 
 on:
-  # At 3:15 AM UTC, only on Monday and Tuesday
+  # At 1:05 AM UTC, only on Thursday and Friday
   schedule:
-    - cron: '15 3 * * 1,2'
+    - cron: '5 1 * * 4,5'
 
 permissions: {}
 
