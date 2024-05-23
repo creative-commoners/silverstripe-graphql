@@ -847,6 +847,112 @@ GRAPHQL;
         $this->assertResults($expected, $records);
     }
 
+    public function provideFilterAndSortWithArgsOnlyRead(): array
+    {
+        return [
+            'read with sort - with sort arg' => [
+                'fixture' => '_QuerySort',
+                'query' => <<<GRAPHQL
+query (\$sort: DataObjectFakeSortFields) {
+  readDataObjectFakes(sort: \$sort) {
+    nodes {
+      myField
+      author {
+        firstName
+      }
+    }
+  }
+}
+GRAPHQL,
+                'args' => [
+                    'sort' => ['author' => ['id' => 'DESC'], 'myField' => 'ASC']
+                ],
+                'expected' => [
+                    ["myField" => "test2", "author" => ["firstName" => "tester2"]],
+                    ["myField" => "test3", "author" => ["firstName" => "tester2"]],
+                    ["myField" => "test1", "author" => ["firstName" => "tester1"]],
+                ],
+            ],
+            'read with sorter files ParentID DESC, name ASC - with sort args' => [
+                'fixture' => '_SortPlugin',
+                'query' => <<<GRAPHQL
+query (\$sort: DataObjectFakeSortFields, \$fileSort: FilesSimpleSortFields) {
+  readDataObjectFakes(sort: \$sort) {
+    nodes {
+      myField
+      files(sort: \$fileSort) {
+        title
+      }
+    }
+  }
+}
+GRAPHQL,
+                'args' => [
+                    'sort' => ['myField' => 'ASC'],
+                    'fileSort' => ['ParentID' => 'DESC', 'name' => 'ASC'],
+                ],
+                'expected' => [
+                    ["myField" => "test1", "files" => [["title" => "file2"], ["title" => "file4"], ["title" => "file1"], ["title" => "file3"]]],
+                    ["myField" => "test2", "files" => []],
+                    ["myField" => "test3", "files" => []],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider provideFilterAndSortWithArgsOnlyRead
+     */
+    public function testFilterAndSortWithArgsOnlyRead(string $fixture, string $query, array $args, array $expected)
+    {
+        $author = Member::create(['FirstName' => 'tester1']);
+        $author->write();
+
+        $author2 = Member::create(['FirstName' => 'tester2']);
+        $author2->write();
+
+        $dataObject1 = DataObjectFake::create(['MyField' => 'test1', 'AuthorID' => $author->ID]);
+        $dataObject1->write();
+
+        $dataObject2 = DataObjectFake::create(['MyField' => 'test2', 'AuthorID' => $author2->ID]);
+        $dataObject2->write();
+
+        $dataObject3 = DataObjectFake::create(['MyField' => 'test3', 'AuthorID' => $author2->ID]);
+        $dataObject3->write();
+
+        $file1 = File::create(['Title' => 'file1', 'Name' => 'asc_name']);
+        $file1->ParentID = 1;
+        $file1->write();
+
+        $file2 = File::create(['Title' => 'file2', 'Name' => 'desc_name']);
+        $file2->ParentID = 1;
+        $file2->write();
+
+        $file3 = File::create(['Title' => 'file3', 'Name' => 'asc_name']);
+        $file3->ParentID = 2;
+        $file3->write();
+
+        $file4 = File::create(['Title' => 'file4', 'Name' => 'desc_name']);
+        $file4->ParentID = 2;
+        $file4->write();
+
+        $dataObject1->Files()->add($file1);
+        $dataObject1->Files()->add($file2);
+        $dataObject1->Files()->add($file3);
+        $dataObject1->Files()->add($file4);
+
+        $factory = new TestSchemaBuilder(['_' . __FUNCTION__ . $fixture]);
+        $schema = $this->createSchema($factory);
+
+        $result = $this->querySchema($schema, $query, $args);
+        $this->assertSuccess($result);
+        $records = $result['data']['readDataObjectFakes']['nodes'] ?? [];
+
+        // We intentionally don't check the sort order, as it's expected it may not match:
+        // See https://github.com/silverstripe/silverstripe-graphql/issues/573
+        $this->assertEqualsCanonicalizing($expected, $records);
+    }
+
     public function testAggregateProperties()
     {
         $file1 = File::create(['Title' => '1']);

@@ -2,7 +2,10 @@
 
 namespace SilverStripe\GraphQL\Schema\Traits;
 
+use GraphQL\Language\AST\ObjectValueNode;
 use GraphQL\Type\Definition\ResolveInfo;
+use Psr\Log\LoggerInterface;
+use SilverStripe\Core\Injector\Injector;
 
 trait SortTrait
 {
@@ -41,6 +44,14 @@ trait SortTrait
             // Find the sort arg
             foreach ($node->arguments as $arg) {
                 if ($arg->name->value !== $fieldName) {
+                    continue;
+                }
+
+                // If the sort has been passed as a variable, we can't attempt to fix it
+                // See https://github.com/silverstripe/silverstripe-graphql/issues/573
+                if (!$arg->value instanceof ObjectValueNode) {
+                    $logger = Injector::inst()->get(LoggerInterface::class . '.graphql-quiet');
+                    $logger->warning('Unable to adjust sort order, sort fields may be applied in incorrect order.');
                     continue;
                 }
 
