@@ -16,5 +16,5 @@ interface FilterRegistryInterface
      */
     public function getAll();
 
-    public function addFilter(FieldFilterInterface $filter, ?string $identifier = null): self;
+    public function addFilter(FieldFilterInterface $filter, ?string $identifier = null): FilterRegistryInterface;
 }

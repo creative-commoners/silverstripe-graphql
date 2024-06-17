@@ -89,7 +89,7 @@ class Type implements ConfigurationApplier, SchemaValidator, SignatureProvider, 
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(string $name): Type
     {
         $this->name = ucfirst($name ?? '');
         return $this;
@@ -106,7 +106,7 @@ class Type implements ConfigurationApplier, SchemaValidator, SignatureProvider, 
     /**
      * @throws SchemaBuilderException
      */
-    public function setFields(array $fields): self
+    public function setFields(array $fields): Type
     {
         Schema::assertValidConfig($fields);
         foreach ($fields as $fieldName => $fieldConfig) {
@@ -125,7 +125,7 @@ class Type implements ConfigurationApplier, SchemaValidator, SignatureProvider, 
      * @param callable|null $callback
      * @return Type
      */
-    public function addField(string $fieldName, $fieldConfig, ?callable $callback = null): self
+    public function addField(string $fieldName, $fieldConfig, ?callable $callback = null): Type
     {
         if (!$fieldConfig instanceof Field) {
             $config = is_string($fieldConfig) ? ['type' => $fieldConfig] : $fieldConfig;
@@ -145,7 +145,7 @@ class Type implements ConfigurationApplier, SchemaValidator, SignatureProvider, 
      * @param string $field
      * @return Type
      */
-    public function removeField(string $field): self
+    public function removeField(string $field): Type
     {
         unset($this->fields[$field]);
 
@@ -165,7 +165,7 @@ class Type implements ConfigurationApplier, SchemaValidator, SignatureProvider, 
     /**
      * @throws SchemaBuilderException
      */
-    public function mergeWith(Type $type): self
+    public function mergeWith(Type $type): Type
     {
         Schema::invariant(
             $type->getIsInput() === $this->getIsInput(),
@@ -233,13 +233,13 @@ class Type implements ConfigurationApplier, SchemaValidator, SignatureProvider, 
         return var_export($this->interfaces, true);
     }
 
-    public function setInterfaces(array $interfaces): self
+    public function setInterfaces(array $interfaces): Type
     {
         $this->interfaces = $interfaces;
         return $this;
     }
 
-    public function addInterface(string $name): self
+    public function addInterface(string $name): Type
     {
         if (!in_array($name, $this->interfaces ?? [])) {
             $this->interfaces[] = $name;
@@ -258,7 +258,7 @@ class Type implements ConfigurationApplier, SchemaValidator, SignatureProvider, 
         return $this->isInput;
     }
 
-    public function setIsInput(bool $isInput): self
+    public function setIsInput(bool $isInput): Type
     {
         $this->isInput = $isInput;
         return $this;
@@ -273,7 +273,7 @@ class Type implements ConfigurationApplier, SchemaValidator, SignatureProvider, 
      * @param array|string|ResolverReference|null $fieldResolver
      * @return Type
      */
-    public function setFieldResolver($fieldResolver): self
+    public function setFieldResolver($fieldResolver): Type
     {
         if ($fieldResolver) {
             $this->fieldResolver = $fieldResolver instanceof ResolverReference

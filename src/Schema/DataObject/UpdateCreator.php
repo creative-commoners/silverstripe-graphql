@@ -62,7 +62,7 @@ class UpdateCreator implements OperationCreator, InputTypeProvider
         if (!$mutationName) {
             $mutationName = 'update' . ucfirst($typeName ?? '');
         }
-        $inputTypeName = self::inputTypeName($typeName);
+        $inputTypeName = UpdateCreator::inputTypeName($typeName);
 
         return ModelMutation::create($model, $mutationName)
             ->setType($typeName)
@@ -169,7 +169,7 @@ class UpdateCreator implements OperationCreator, InputTypeProvider
             }
         }
         $inputType = InputType::create(
-            self::inputTypeName($modelType->getName()),
+            UpdateCreator::inputTypeName($modelType->getName()),
             [
                 'fields' => $fieldMap
             ]

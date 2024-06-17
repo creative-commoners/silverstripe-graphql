@@ -18,7 +18,7 @@ class FirstResult implements ModelQueryPlugin
 
     public function getIdentifier(): string
     {
-        return self::IDENTIFIER;
+        return FirstResult::IDENTIFIER;
     }
 
     /**

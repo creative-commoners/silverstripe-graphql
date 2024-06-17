@@ -31,7 +31,7 @@ class RegistryBackend
      * @param Identifiable[] $instances
      * @return $this
      */
-    public function setInstances(array $instances): self
+    public function setInstances(array $instances): RegistryBackend
     {
         foreach ($instances as $instance) {
             if (!is_subclass_of($instance, Identifiable::class)) {

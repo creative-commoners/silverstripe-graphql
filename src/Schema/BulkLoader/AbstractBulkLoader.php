@@ -42,7 +42,7 @@ abstract class AbstractBulkLoader implements Identifiable, ConfigurationApplier
      * @param array $include
      * @return $this
      */
-    public function include(array $include): self
+    public function include(array $include): AbstractBulkLoader
     {
         $this->includeList = $include;
 
@@ -53,7 +53,7 @@ abstract class AbstractBulkLoader implements Identifiable, ConfigurationApplier
      * @param array $exclude
      * @return $this
      */
-    public function exclude(array $exclude): self
+    public function exclude(array $exclude): AbstractBulkLoader
     {
         $this->excludeList = $exclude;
 
@@ -65,7 +65,7 @@ abstract class AbstractBulkLoader implements Identifiable, ConfigurationApplier
      * @return AbstractBulkLoader
      * @throws SchemaBuilderException
      */
-    public function applyConfig(array $config): self
+    public function applyConfig(array $config): AbstractBulkLoader
     {
         Schema::assertValidConfig($config, ['include', 'exclude'], ['include']);
         $include = $config['include'];

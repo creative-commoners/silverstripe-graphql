@@ -26,7 +26,7 @@ class Inheritance implements PluginInterface, SchemaUpdater, ModelTypePlugin
 
     public function getIdentifier(): string
     {
-        return self::IDENTIFIER;
+        return Inheritance::IDENTIFIER;
     }
 
     /**

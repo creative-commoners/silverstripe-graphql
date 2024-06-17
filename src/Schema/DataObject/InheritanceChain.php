@@ -97,7 +97,7 @@ class InheritanceChain
      * @param array $ancestors
      * @return $this
      */
-    public function hideAncestors(array $ancestors): self
+    public function hideAncestors(array $ancestors): InheritanceChain
     {
         $this->hiddenAncestors = $ancestors;
 
@@ -142,7 +142,7 @@ class InheritanceChain
      * @param array $descendants
      * @return $this
      */
-    public function hideDescendants(array $descendants): self
+    public function hideDescendants(array $descendants): InheritanceChain
     {
         $this->hiddenDescendants = $descendants;
 

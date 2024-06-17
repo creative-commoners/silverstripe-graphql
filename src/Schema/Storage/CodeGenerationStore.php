@@ -134,7 +134,7 @@ class CodeGenerationStore implements SchemaStorageInterface
         $templateDir = static::getTemplateDir();
         $obfuscator = $this->getObfuscator();
         $globals = [
-            'typeClassName' => self::TYPE_CLASS_NAME,
+            'typeClassName' => CodeGenerationStore::TYPE_CLASS_NAME,
             'namespace' => $this->getNamespace(),
             'obfuscator' => $obfuscator,
         ];
@@ -288,7 +288,7 @@ class CodeGenerationStore implements SchemaStorageInterface
         }
         require_once($this->getSchemaFilename());
 
-        $registryClass = $this->getClassName(self::TYPE_CLASS_NAME);
+        $registryClass = $this->getClassName(CodeGenerationStore::TYPE_CLASS_NAME);
         $hasMutations = method_exists($registryClass, Schema::MUTATION_TYPE ?? '');
         $schemaConfig = new GraphqLSchemaConfig();
         $callback = call_user_func([$registryClass, Schema::QUERY_TYPE]);
@@ -375,7 +375,7 @@ class CodeGenerationStore implements SchemaStorageInterface
         return $this;
     }
 
-    public function setVerbose(bool $bool): self
+    public function setVerbose(bool $bool): CodeGenerationStore
     {
         $this->verbose = $bool;
 

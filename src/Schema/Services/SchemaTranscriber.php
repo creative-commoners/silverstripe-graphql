@@ -79,7 +79,7 @@ class SchemaTranscriber
         return $this->rootDir;
     }
 
-    public function setRootDir(string $rootDir): self
+    public function setRootDir(string $rootDir): SchemaTranscriber
     {
         $this->rootDir = $rootDir;
         return $this;
@@ -126,7 +126,7 @@ GRAPHQL
     {
         return Path::join(
             $this->rootDir,
-            $this->name . '.' . self::CACHE_FILENAME
+            $this->name . '.' . SchemaTranscriber::CACHE_FILENAME
         );
     }
 }

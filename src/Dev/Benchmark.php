@@ -16,10 +16,10 @@ class Benchmark
 
     public static function start(string $id): void
     {
-        if (isset(self::$benchmarks[$id])) {
+        if (isset(Benchmark::$benchmarks[$id])) {
             throw new \Exception(sprintf('Benchmark ID %s has already started', $id));
         }
-        self::$benchmarks[$id] = microtime(true);
+        Benchmark::$benchmarks[$id] = microtime(true);
     }
 
     /**
@@ -31,7 +31,7 @@ class Benchmark
      */
     public static function end(string $id, string $message = null, bool $return = true): ?string
     {
-        $benchmark = self::$benchmarks[$id] ?? null;
+        $benchmark = Benchmark::$benchmarks[$id] ?? null;
         if (!$benchmark) {
             throw new \Exception(sprintf('Benchmark ID %s was never started', $id));
         }
@@ -40,7 +40,7 @@ class Benchmark
         $ms = $rounded * 1000;
 
         $result = $message ? sprintf($message, $ms) : sprintf('[%s]: %sms', $id, $ms);
-        unset(self::$benchmarks[$id]);
+        unset(Benchmark::$benchmarks[$id]);
 
         if ($return) {
             return $result;

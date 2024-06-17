@@ -17,7 +17,7 @@ interface PersistedQueryMappingProvider
     /**
      * Sets mapping of query mapping to schema keys
      */
-    public function setSchemaMapping(array $mapping): self;
+    public function setSchemaMapping(array $mapping): PersistedQueryMappingProvider;
 
     public function getSchemaMapping(): array;
 }

@@ -31,9 +31,9 @@ class Logger implements LoggerInterface
     const ALERT = 550;
     const EMERGENCY = 600;
 
-    private int $level = self::INFO;
+    private int $level = Logger::INFO;
 
-    public function setVerbosity(int $level): self
+    public function setVerbosity(int $level): Logger
     {
         $this->level = $level;
 
@@ -42,24 +42,24 @@ class Logger implements LoggerInterface
 
     public function alert(Stringable|string $message, array $context = []):void
     {
-        if ($this->level > self::ALERT) {
+        if ($this->level > Logger::ALERT) {
             return;
         }
-        $this->output($message, strtoupper(__FUNCTION__), self::RED);
+        $this->output($message, strtoupper(__FUNCTION__), Logger::RED);
     }
 
     public function critical(Stringable|string $message, array $context = []): void
     {
-        if ($this->level > self::CRITICAL) {
+        if ($this->level > Logger::CRITICAL) {
             return;
         }
 
-        $this->output($message, strtoupper(__FUNCTION__), self::RED);
+        $this->output($message, strtoupper(__FUNCTION__), Logger::RED);
     }
 
     public function debug(Stringable|string $message, array $context = []): void
     {
-        if ($this->level > self::DEBUG) {
+        if ($this->level > Logger::DEBUG) {
             return;
         }
 
@@ -68,29 +68,29 @@ class Logger implements LoggerInterface
 
     public function emergency(Stringable|string $message, array $context = []): void
     {
-        if ($this->level > self::EMERGENCY) {
+        if ($this->level > Logger::EMERGENCY) {
             return;
         }
 
-        $this->output($message, strtoupper(__FUNCTION__), self::RED);
+        $this->output($message, strtoupper(__FUNCTION__), Logger::RED);
     }
 
     public function error(Stringable|string $message, array $context = []): void
     {
-        if ($this->level > self::ERROR) {
+        if ($this->level > Logger::ERROR) {
             return;
         }
 
-        $this->output($message, strtoupper(__FUNCTION__), self::RED);
+        $this->output($message, strtoupper(__FUNCTION__), Logger::RED);
     }
 
     public function info(Stringable|string $message, array $context = []): void
     {
-        if ($this->level > self::INFO) {
+        if ($this->level > Logger::INFO) {
             return;
         }
 
-        $this->output($message, strtoupper(__FUNCTION__), self::CYAN);
+        $this->output($message, strtoupper(__FUNCTION__), Logger::CYAN);
     }
 
     public function log($level, Stringable|string $message, array $context = []): void
@@ -100,20 +100,20 @@ class Logger implements LoggerInterface
 
     public function notice(Stringable|string $message, array $context = []): void
     {
-        if ($this->level > self::NOTICE) {
+        if ($this->level > Logger::NOTICE) {
             return;
         }
 
-        $this->output($message, strtoupper(__FUNCTION__), self::YELLOW);
+        $this->output($message, strtoupper(__FUNCTION__), Logger::YELLOW);
     }
 
     public function warning(Stringable|string $message, array $context = []): void
     {
-        if ($this->level > self::WARNING) {
+        if ($this->level > Logger::WARNING) {
             return;
         }
 
-        $this->output($message, strtoupper(__FUNCTION__), self::YELLOW);
+        $this->output($message, strtoupper(__FUNCTION__), Logger::YELLOW);
     }
 
     public function output(string $msg, ?string $prefix = null, ?string $colour = null): void
@@ -123,7 +123,7 @@ class Logger implements LoggerInterface
             '%s%s%s%s',
             $colour && $cli ? $colour :'',
             $prefix ? '[' . $prefix . ']: ' : '',
-            $colour && $cli ? self::RESET : '',
+            $colour && $cli ? Logger::RESET : '',
             $msg
         );
         if ($cli) {

@@ -49,7 +49,7 @@ class BulkLoaderSet implements ConfigurationApplier
      * @return $this
      * @throws SchemaBuilderException
      */
-    public function applyConfig(array $config): self
+    public function applyConfig(array $config): BulkLoaderSet
     {
         $registry = Registry::inst();
         foreach ($config as $loaderID => $loaderConfig) {
@@ -67,7 +67,7 @@ class BulkLoaderSet implements ConfigurationApplier
      * @param AbstractBulkLoader $loader
      * @return $this
      */
-    public function addLoader(AbstractBulkLoader $loader): self
+    public function addLoader(AbstractBulkLoader $loader): BulkLoaderSet
     {
         $this->loaders[] = $loader;
 
@@ -101,7 +101,7 @@ class BulkLoaderSet implements ConfigurationApplier
      * @param array $loaders
      * @return $this
      */
-    public function setLoaders(array $loaders): self
+    public function setLoaders(array $loaders): BulkLoaderSet
     {
         foreach ($loaders as $loader) {
             if (!$loader instanceof AbstractBulkLoader) {

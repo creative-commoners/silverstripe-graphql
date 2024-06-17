@@ -129,7 +129,7 @@ class NestedInputBuilder
                 ]);
                 // Prevent stupid recursion in self-referential relationships, e.g. Parent
                 if ($namedType === $type->getName()) {
-                    $map[$fieldObj->getName()] = self::SELF_REFERENTIAL;
+                    $map[$fieldObj->getName()] = NestedInputBuilder::SELF_REFERENTIAL;
                 } elseif ($seen) {
                     continue;
                 } else {
@@ -213,7 +213,7 @@ class NestedInputBuilder
 
             $isScalar = (bool) Schema::isInternalType($fieldType) || $this->schema->getEnum($fieldType);
 
-            if ($data === self::SELF_REFERENTIAL) {
+            if ($data === NestedInputBuilder::SELF_REFERENTIAL) {
                 $inputType->addField($fieldName, $inputType->getName());
             } elseif (!is_array($data) && !$nestedType && $isScalar) {
                 // Regular field, e.g. scalar
@@ -269,7 +269,7 @@ class NestedInputBuilder
     /**
      * @throws SchemaBuilderException
      */
-    public function setResolveConfig(array $config): self
+    public function setResolveConfig(array $config): NestedInputBuilder
     {
         foreach ($config as $fieldName => $data) {
             Schema::invariant(

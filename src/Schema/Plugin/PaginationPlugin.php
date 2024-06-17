@@ -43,7 +43,7 @@ class PaginationPlugin implements FieldPlugin, SchemaUpdater
 
     public function getIdentifier(): string
     {
-        return self::IDENTIFIER;
+        return PaginationPlugin::IDENTIFIER;
     }
 
     /**

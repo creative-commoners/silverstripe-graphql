@@ -50,7 +50,7 @@ class InterfaceType extends Type
      * @param array|string|ResolverReference|null $resolver
      * @return $this
      */
-    public function setTypeResolver($resolver): self
+    public function setTypeResolver($resolver): InterfaceType
     {
         if ($resolver) {
             $this->typeResolver = $resolver instanceof ResolverReference

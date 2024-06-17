@@ -15,7 +15,7 @@ class ExtensionLoader extends AbstractBulkLoader
 
     public static function getIdentifier(): string
     {
-        return self::IDENTIFIER;
+        return ExtensionLoader::IDENTIFIER;
     }
 
     public function collect(Collection $collection): Collection

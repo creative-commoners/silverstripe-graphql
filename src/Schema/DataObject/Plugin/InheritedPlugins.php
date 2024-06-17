@@ -22,7 +22,7 @@ class InheritedPlugins implements ModelTypePlugin
 
     public function getIdentifier(): string
     {
-        return self::IDENTIFIER;
+        return InheritedPlugins::IDENTIFIER;
     }
 
     /**

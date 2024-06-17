@@ -22,7 +22,7 @@ class AbstractTypeRegistryTest extends SapphireTest
 
     protected function setUp(): void
     {
-        $dir = self::SOURCE_DIRECTORY;
+        $dir = AbstractTypeRegistryTest::SOURCE_DIRECTORY;
         if (!file_exists($dir)) {
             mkdir($dir);
         }
@@ -30,7 +30,7 @@ class AbstractTypeRegistryTest extends SapphireTest
 
     protected function tearDown(): void
     {
-        $dir = self::SOURCE_DIRECTORY;
+        $dir = AbstractTypeRegistryTest::SOURCE_DIRECTORY;
         if (file_exists($dir)) {
             $fs = new Filesystem();
             $fs->remove($dir);
@@ -45,7 +45,7 @@ class AbstractTypeRegistryTest extends SapphireTest
     {
         list($registry, $_, $getRebuildOnMissingPathMethod, $getRebuildOnMissingFilename) = $this->getInstance();
         $this->assertSame(
-            self::SOURCE_DIRECTORY . '/' . $getRebuildOnMissingFilename->invoke($registry),
+            AbstractTypeRegistryTest::SOURCE_DIRECTORY . '/' . $getRebuildOnMissingFilename->invoke($registry),
             $getRebuildOnMissingPathMethod->invoke($registry)
         );
     }
@@ -87,7 +87,7 @@ class AbstractTypeRegistryTest extends SapphireTest
             // put in a timestamp that is in the future, so it can never be above the interval threshold
             $time = time() + 100;
         }
-        file_put_contents(self::SOURCE_DIRECTORY . '/' . $getRebuildOnMissingFilename->invoke($registry), $time);
+        file_put_contents(AbstractTypeRegistryTest::SOURCE_DIRECTORY . '/' . $getRebuildOnMissingFilename->invoke($registry), $time);
 
         // assert
         $this->assertSame($expected, $canRebuildOnMissingMethod->invoke($registry));

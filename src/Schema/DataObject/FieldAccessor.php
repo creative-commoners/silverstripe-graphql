@@ -237,14 +237,14 @@ class FieldAccessor
             ($includeRelations ? '_relations' : ''),
             ($includeInherirted ? '_inherited' : '')
         ]) ?? '');
-        $cached = self::$__mappingCache[$cacheKey] ?? null;
+        $cached = FieldAccessor::$__mappingCache[$cacheKey] ?? null;
         if (!$cached) {
             $normalFields = $this->getAccessibleFields($dataObject, $includeRelations, $includeInherirted);
             $lowercaseFields = array_map('strtolower', $normalFields ?? []);
             $lookup = array_combine($lowercaseFields ?? [], $normalFields ?? []);
-            self::$__mappingCache[$cacheKey] = $lookup;
+            FieldAccessor::$__mappingCache[$cacheKey] = $lookup;
         }
-        return self::$__mappingCache[$cacheKey];
+        return FieldAccessor::$__mappingCache[$cacheKey];
     }
 
     /**

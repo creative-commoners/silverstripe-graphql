@@ -71,7 +71,7 @@ class UnionType implements
     /**
      * @throws SchemaBuilderException
      */
-    public function setName(string $name): self
+    public function setName(string $name): UnionType
     {
         Schema::assertValidName($name);
         $this->name = $name;
@@ -83,7 +83,7 @@ class UnionType implements
         return $this->types;
     }
 
-    public function setTypes(array $types): self
+    public function setTypes(array $types): UnionType
     {
         $this->types = $types;
         return $this;
@@ -106,7 +106,7 @@ class UnionType implements
      * @param array|string|ResolverReference|null $resolver
      * @return $this
      */
-    public function setTypeResolver($resolver): self
+    public function setTypeResolver($resolver): UnionType
     {
         if ($resolver) {
             $this->typeResolver = $resolver instanceof ResolverReference
@@ -129,7 +129,7 @@ class UnionType implements
         return $this->description;
     }
 
-    public function setDescription(?string $description): self
+    public function setDescription(?string $description): UnionType
     {
         $this->description = $description;
         return $this;

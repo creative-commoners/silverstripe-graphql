@@ -15,7 +15,7 @@ class FilepathLoader extends AbstractBulkLoader
 
     public static function getIdentifier(): string
     {
-        return self::IDENTIFIER;
+        return FilepathLoader::IDENTIFIER;
     }
 
     public function collect(Collection $collection): Collection

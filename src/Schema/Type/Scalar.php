@@ -70,7 +70,7 @@ class Scalar implements ConfigurationApplier, SchemaValidator, SignatureProvider
     /**
      * @throws SchemaBuilderException
      */
-    public function setName(string $name): self
+    public function setName(string $name): Scalar
     {
         Schema::assertValidName($name);
         $this->name = $name;
@@ -87,7 +87,7 @@ class Scalar implements ConfigurationApplier, SchemaValidator, SignatureProvider
         return EncodedResolver::create($this->getSerialiser());
     }
 
-    public function setSerialiser(ResolverReference $serialiser): self
+    public function setSerialiser(ResolverReference $serialiser): Scalar
     {
         $this->serialiser = $serialiser;
         return $this;
@@ -103,7 +103,7 @@ class Scalar implements ConfigurationApplier, SchemaValidator, SignatureProvider
         return EncodedResolver::create($this->getValueParser());
     }
 
-    public function setValueParser(ResolverReference $valueParser): self
+    public function setValueParser(ResolverReference $valueParser): Scalar
     {
         $this->valueParser = $valueParser;
         return $this;
@@ -119,7 +119,7 @@ class Scalar implements ConfigurationApplier, SchemaValidator, SignatureProvider
         return EncodedResolver::create($this->getLiteralParser());
     }
 
-    public function setLiteralParser(ResolverReference $literalParser): self
+    public function setLiteralParser(ResolverReference $literalParser): Scalar
     {
         $this->literalParser = $literalParser;
         return $this;

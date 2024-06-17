@@ -13,7 +13,7 @@ class InheritanceLoader extends AbstractBulkLoader
 
     public static function getIdentifier(): string
     {
-        return self::IDENTIFIER;
+        return InheritanceLoader::IDENTIFIER;
     }
 
     public function collect(Collection $collection): Collection

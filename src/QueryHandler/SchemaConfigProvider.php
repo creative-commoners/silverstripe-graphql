@@ -30,7 +30,7 @@ class SchemaConfigProvider implements ContextProvider
      */
     public static function get(array $context): SchemaConfig
     {
-        return $context[self::KEY] ?? new SchemaConfig();
+        return $context[SchemaConfigProvider::KEY] ?? new SchemaConfig();
     }
 
     /**
@@ -39,7 +39,7 @@ class SchemaConfigProvider implements ContextProvider
     public function provideContext(): array
     {
         return [
-            self::KEY => $this->schemaConfig,
+            SchemaConfigProvider::KEY => $this->schemaConfig,
         ];
     }
 }

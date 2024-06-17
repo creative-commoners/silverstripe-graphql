@@ -15,9 +15,9 @@ class FakeInterfaceBuilder extends InterfaceBuilder implements TestOnly
 
     public static function reset()
     {
-        self::$createCalls = [];
-        self::$baseCalled = false;
-        self::$applyCalls = [];
+        FakeInterfaceBuilder::$createCalls = [];
+        FakeInterfaceBuilder::$baseCalled = false;
+        FakeInterfaceBuilder::$applyCalls = [];
     }
 
     public function createInterfaces(ModelType $modelType, array $interfaceStack = []): InterfaceBuilder
@@ -34,7 +34,7 @@ class FakeInterfaceBuilder extends InterfaceBuilder implements TestOnly
 
     public function applyInterfacesToQueries(ModelType $type): InterfaceBuilder
     {
-        self::$applyCalls[$type->getName()] = true;
+        FakeInterfaceBuilder::$applyCalls[$type->getName()] = true;
         return $this;
     }
 }

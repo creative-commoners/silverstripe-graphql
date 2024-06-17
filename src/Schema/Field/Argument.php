@@ -91,7 +91,7 @@ class Argument implements ConfigurationApplier, SignatureProvider
      * @return $this
      * @throws SchemaBuilderException
      */
-    public function setType($type): self
+    public function setType($type): Argument
     {
         Schema::invariant(
             is_string($type) || $type instanceof EncodedType,
@@ -127,7 +127,7 @@ class Argument implements ConfigurationApplier, SignatureProvider
      * @param string $name
      * @return Argument
      */
-    public function setName(string $name): self
+    public function setName(string $name): Argument
     {
         $this->name = $name;
         return $this;
@@ -159,7 +159,7 @@ class Argument implements ConfigurationApplier, SignatureProvider
      * @param bool|int|string|null $defaultValue
      * @return Argument
      */
-    public function setDefaultValue($defaultValue): self
+    public function setDefaultValue($defaultValue): Argument
     {
         $this->defaultValue = $defaultValue;
         return $this;
@@ -177,7 +177,7 @@ class Argument implements ConfigurationApplier, SignatureProvider
      * @param string|null $description
      * @return Argument
      */
-    public function setDescription(?string $description): self
+    public function setDescription(?string $description): Argument
     {
         $this->description = $description;
         return $this;

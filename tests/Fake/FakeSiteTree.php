@@ -16,11 +16,11 @@ class FakeSiteTree extends DataObject implements TestOnly
     ];
 
     private static $has_one = [
-        'Parent' => self::class,
+        'Parent' => FakeSiteTree::class,
     ];
 
     private static $has_many = [
-        'Children' => self::class,
+        'Children' => FakeSiteTree::class,
     ];
 
     private static $extensions = [

@@ -52,7 +52,7 @@ class QueryHandler implements
      */
     private array $contextProviders = [];
 
-    private array $errorFormatter = [self::class, 'formatError'];
+    private array $errorFormatter = [QueryHandler::class, 'formatError'];
 
     /**
      * @config
@@ -226,7 +226,7 @@ class QueryHandler implements
      * @param callable $errorFormatter
      * @return QueryHandler
      */
-    public function setErrorFormatter(callable $errorFormatter): self
+    public function setErrorFormatter(callable $errorFormatter): QueryHandler
     {
         $this->errorFormatter = $errorFormatter;
         return $this;
@@ -236,7 +236,7 @@ class QueryHandler implements
      * @param callable $errorHandler
      * @return QueryHandler
      */
-    public function setErrorHandler(callable $errorHandler): self
+    public function setErrorHandler(callable $errorHandler): QueryHandler
     {
         $this->errorHandler = $errorHandler;
         return $this;
@@ -254,7 +254,7 @@ class QueryHandler implements
      * @param QueryMiddleware[] $middlewares
      * @return $this
      */
-    public function setMiddlewares(array $middlewares): self
+    public function setMiddlewares(array $middlewares): QueryHandler
     {
         foreach ($middlewares as $middleware) {
             if ($middleware instanceof QueryMiddleware) {
@@ -268,7 +268,7 @@ class QueryHandler implements
      * @param QueryMiddleware $middleware
      * @return $this
      */
-    public function addMiddleware(QueryMiddleware $middleware): self
+    public function addMiddleware(QueryMiddleware $middleware): QueryHandler
     {
         $this->middlewares[] = $middleware;
         return $this;

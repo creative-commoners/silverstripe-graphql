@@ -139,7 +139,7 @@ class ModelField extends Field
      * @param string|null $property
      * @return ModelField
      */
-    public function setProperty(?string $property): self
+    public function setProperty(?string $property): ModelField
     {
         $this->property = $property;
 

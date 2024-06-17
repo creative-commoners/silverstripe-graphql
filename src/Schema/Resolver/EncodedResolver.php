@@ -89,7 +89,7 @@ class EncodedResolver implements EncoderInterface
         return $this->context;
     }
 
-    public function setContext(?array $context): self
+    public function setContext(?array $context): EncodedResolver
     {
         $this->context = $context;
         return $this;
@@ -106,7 +106,7 @@ class EncodedResolver implements EncoderInterface
      * @return EncodedResolver
      * @throws SchemaBuilderException
      */
-    public function addContext(string $key, $val): self
+    public function addContext(string $key, $val): EncodedResolver
     {
         Schema::invariant(
             is_scalar($val) || is_array($val),
@@ -119,7 +119,7 @@ class EncodedResolver implements EncoderInterface
         return $this;
     }
 
-    public function addMiddleware(EncodedResolver $ref): self
+    public function addMiddleware(EncodedResolver $ref): EncodedResolver
     {
         $this->middleware[] = $ref;
 
@@ -131,7 +131,7 @@ class EncodedResolver implements EncoderInterface
         return $this->middleware;
     }
 
-    public function addAfterware(EncodedResolver $ref): self
+    public function addAfterware(EncodedResolver $ref): EncodedResolver
     {
         $this->afterware[] = $ref;
 

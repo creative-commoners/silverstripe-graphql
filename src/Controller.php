@@ -245,7 +245,7 @@ class Controller extends BaseController
         return array_merge($defaults, $override);
     }
 
-    public function setCorsConfig(array $config): self
+    public function setCorsConfig(array $config): Controller
     {
         $this->corsConfig = array_merge($this->corsConfig, $config);
 
@@ -326,7 +326,7 @@ class Controller extends BaseController
     protected function handleOptions(HTTPRequest $request): HTTPResponse
     {
         $response = HTTPResponse::create();
-        $corsConfig = Config::inst()->get(self::class, 'cors');
+        $corsConfig = Config::inst()->get(Controller::class, 'cors');
         if ($corsConfig['Enabled']) {
             // CORS config is enabled and the request is an OPTIONS pre-flight.
             // Process the CORS config and add appropriate headers.
@@ -390,7 +390,7 @@ class Controller extends BaseController
         return $member;
     }
 
-    public function setSchemaKey(string $schemaKey): self
+    public function setSchemaKey(string $schemaKey): Controller
     {
         $this->schemaKey = $schemaKey;
         return $this;
@@ -406,7 +406,7 @@ class Controller extends BaseController
         return $this->queryHandler;
     }
 
-    public function setQueryHandler(QueryHandlerInterface $queryHandler): self
+    public function setQueryHandler(QueryHandlerInterface $queryHandler): Controller
     {
         $this->queryHandler = $queryHandler;
         return $this;

@@ -85,7 +85,7 @@ class Configuration
      * @return $this
      * @throws SchemaBuilderException
      */
-    public function set($path, $value): self
+    public function set($path, $value): Configuration
     {
         $this->path($path, function (&$scope, $part) use ($value) {
             $scope[$part] = $value;
@@ -100,7 +100,7 @@ class Configuration
      * @return $this
      * @throws SchemaBuilderException
      */
-    public function unset($path): self
+    public function unset($path): Configuration
     {
         $this->path($path, function (&$scope, $part) {
             unset($scope[$part]);
@@ -113,7 +113,7 @@ class Configuration
      * @param array $settings
      * @return $this
      */
-    public function apply(array $settings): self
+    public function apply(array $settings): Configuration
     {
         $this->settings = Priority::mergeArray($settings, $this->settings);
 

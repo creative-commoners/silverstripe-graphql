@@ -23,7 +23,7 @@ class UserContextProvider implements ContextProvider
 
     public static function get(array $context): ?Member
     {
-        return $context[self::KEY] ?? null;
+        return $context[UserContextProvider::KEY] ?? null;
     }
 
     /**
@@ -32,7 +32,7 @@ class UserContextProvider implements ContextProvider
     public function provideContext(): array
     {
         return [
-            self::KEY => $this->member,
+            UserContextProvider::KEY => $this->member,
         ];
     }
 }

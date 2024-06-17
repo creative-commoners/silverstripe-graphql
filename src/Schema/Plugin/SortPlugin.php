@@ -41,7 +41,7 @@ class SortPlugin implements FieldPlugin, SchemaUpdater
 
     public function getIdentifier(): string
     {
-        return self::IDENTIFIER;
+        return SortPlugin::IDENTIFIER;
     }
 
     public static function updateSchema(Schema $schema): void
@@ -60,7 +60,7 @@ class SortPlugin implements FieldPlugin, SchemaUpdater
         Schema::invariant(
             !empty($fields),
             '%s requires a "fields" parameter to be passed to its config that maps field name to type name',
-            self::getIdentifier()
+            SortPlugin::getIdentifier()
         );
         $sortFieldName = $this->config()->get('field_name');
         $input = InputType::create($name);
@@ -98,7 +98,7 @@ class SortPlugin implements FieldPlugin, SchemaUpdater
                 return $list;
             }
 
-            $sortArgs = self::getSortArgs($info, $args, $fieldName);
+            $sortArgs = SortPlugin::getSortArgs($info, $args, $fieldName);
             $list = $list->sort($sortArgs);
 
             return $list;

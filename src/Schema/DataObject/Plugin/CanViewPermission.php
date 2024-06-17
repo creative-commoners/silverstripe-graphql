@@ -27,7 +27,7 @@ class CanViewPermission extends AbstractCanViewPermission
      */
     public function getIdentifier(): string
     {
-        return self::IDENTIFIER;
+        return CanViewPermission::IDENTIFIER;
     }
 
     protected function getPermissionResolver(): callable
@@ -66,7 +66,7 @@ class CanViewPermission extends AbstractCanViewPermission
             'Plugin "%s" cannot be applied to field "%s" because it does not resolve to an object, array,
             or implementation of %s. You may need to implement a custom permission checker that extends %s.
             Otherwise, try returning an instance of %s or another implementation of %s.',
-            self::IDENTIFIER,
+            CanViewPermission::IDENTIFIER,
             $info->fieldName,
             Filterable::class,
             AbstractCanViewPermission::class,

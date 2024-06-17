@@ -29,7 +29,7 @@ class TokenContextProvider implements ContextProvider
      */
     public static function get(array $context): ?string
     {
-        return $context[self::KEY] ?? null;
+        return $context[TokenContextProvider::KEY] ?? null;
     }
 
     /**
@@ -38,7 +38,7 @@ class TokenContextProvider implements ContextProvider
     public function provideContext(): array
     {
         return [
-            self::KEY => $this->token,
+            TokenContextProvider::KEY => $this->token,
         ];
     }
 }

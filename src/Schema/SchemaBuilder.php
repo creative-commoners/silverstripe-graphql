@@ -142,7 +142,7 @@ class SchemaBuilder
             if ($data === false) {
                 continue;
             }
-            $sourcedConfig = self::getSchemaConfigFromSource($key, $data);
+            $sourcedConfig = SchemaBuilder::getSchemaConfigFromSource($key, $data);
             $mergedSchema = Priority::mergeArray($sourcedConfig, $mergedSchema);
         }
 
@@ -158,7 +158,7 @@ class SchemaBuilder
             if ($data === false) {
                 continue;
             }
-            $sourcedConfig = self::getSchemaConfigFromSource($key, $data);
+            $sourcedConfig = SchemaBuilder::getSchemaConfigFromSource($key, $data);
             $mergedSchema = Priority::mergeArray($sourcedConfig, $mergedSchema);
         }
 

@@ -84,7 +84,7 @@ class Enum extends Type implements SchemaValidator
         return $this->values;
     }
 
-    public function setValues(array $values): self
+    public function setValues(array $values): Enum
     {
         $this->values = $values;
         return $this;
@@ -93,7 +93,7 @@ class Enum extends Type implements SchemaValidator
     /**
      * @param mixed $val
      */
-    public function addValue(string $key, $val = null): self
+    public function addValue(string $key, $val = null): Enum
     {
         if ($val === null) {
             $this->values[$key] = $key;
@@ -104,7 +104,7 @@ class Enum extends Type implements SchemaValidator
         return $this;
     }
 
-    public function removeValue(string $key): self
+    public function removeValue(string $key): Enum
     {
         unset($this->values[$key]);
 

@@ -116,7 +116,7 @@ class SchemaConfig extends Configuration
      * @return $this
      * @throws SchemaBuilderException
      */
-    public function setTypeMapping(array $typeMapping): self
+    public function setTypeMapping(array $typeMapping): SchemaConfig
     {
         return $this->set('typeMapping', $typeMapping);
     }
@@ -134,7 +134,7 @@ class SchemaConfig extends Configuration
      * @return $this
      * @throws SchemaBuilderException
      */
-    public function setFieldMapping(array $fields): self
+    public function setFieldMapping(array $fields): SchemaConfig
     {
         return $this->set('fieldMapping', $fields);
     }

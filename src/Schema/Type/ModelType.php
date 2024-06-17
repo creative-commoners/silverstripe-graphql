@@ -172,7 +172,7 @@ class ModelType extends Type implements ExtraTypeProvider
      * @return $this
      * @throws SchemaBuilderException
      */
-    public function addFields(array $fields): self
+    public function addFields(array $fields): ModelType
     {
         if (ArrayLib::is_associative($fields)) {
             foreach ($fields as $fieldName => $config) {
@@ -190,7 +190,7 @@ class ModelType extends Type implements ExtraTypeProvider
     /**
      * @throws SchemaBuilderException
      */
-    public function addAllFields(): self
+    public function addAllFields(): ModelType
     {
         $initialFields = $this->getInitialFields();
         foreach ($initialFields as $fieldName => $fieldType) {
@@ -208,7 +208,7 @@ class ModelType extends Type implements ExtraTypeProvider
     /**
      * @throws SchemaBuilderException
      */
-    public function addAllOperations(): self
+    public function addAllOperations(): ModelType
     {
         Schema::invariant(
             $this->getModel() instanceof OperationProvider,
@@ -232,7 +232,7 @@ class ModelType extends Type implements ExtraTypeProvider
     /**
      * @throws SchemaBuilderException
      */
-    public function applyOperationsConfig(array $operations): self
+    public function applyOperationsConfig(array $operations): ModelType
     {
         Schema::assertValidConfig($operations);
         foreach ($operations as $operationName => $data) {
@@ -283,14 +283,14 @@ class ModelType extends Type implements ExtraTypeProvider
         return parent::mergeWith($type);
     }
 
-    public function addOperation(string $operationName, array $config = []): self
+    public function addOperation(string $operationName, array $config = []): ModelType
     {
         $this->operationCreators[$operationName] = $config;
 
         return $this;
     }
 
-    public function removeOperation(string $operationName): self
+    public function removeOperation(string $operationName): ModelType
     {
         unset($this->operationCreators[$operationName]);
         return $this;
@@ -300,7 +300,7 @@ class ModelType extends Type implements ExtraTypeProvider
     /**
      * @throws SchemaBuilderException
      */
-    public function updateOperation(string $operationName, array $config = []): self
+    public function updateOperation(string $operationName, array $config = []): ModelType
     {
         Schema::invariant(
             isset($this->operationCreators[$operationName]),

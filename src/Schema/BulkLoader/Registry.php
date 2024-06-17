@@ -18,16 +18,16 @@ class Registry
      */
     public static function inst(): RegistryBackend
     {
-        if (self::$inst) {
-            return self::$inst;
+        if (Registry::$inst) {
+            return Registry::$inst;
         }
         $subclasses = array_values(ClassInfo::subclassesFor(AbstractBulkLoader::class, false) ?? []);
         $bulkLoaders = array_map(function ($className) {
             return Injector::inst()->get($className);
         }, $subclasses ?? []);
 
-        self::$inst = RegistryBackend::create(...$bulkLoaders);
+        Registry::$inst = RegistryBackend::create(...$bulkLoaders);
 
-        return self::$inst;
+        return Registry::$inst;
     }
 }

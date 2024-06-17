@@ -272,7 +272,7 @@ class DataObjectModel implements
      * @param FieldAccessor $fieldAccessor
      * @return DataObjectModel
      */
-    public function setFieldAccessor(FieldAccessor $fieldAccessor): self
+    public function setFieldAccessor(FieldAccessor $fieldAccessor): DataObjectModel
     {
         $this->fieldAccessor = $fieldAccessor;
         return $this;

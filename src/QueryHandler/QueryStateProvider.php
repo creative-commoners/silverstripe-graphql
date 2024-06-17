@@ -30,13 +30,13 @@ class QueryStateProvider implements ContextProvider
 
     public static function get(array $context): Configuration
     {
-        return $context[self::KEY] ?? new Configuration();
+        return $context[QueryStateProvider::KEY] ?? new Configuration();
     }
 
     public function provideContext(): array
     {
         return [
-            self::KEY => $this->queryState,
+            QueryStateProvider::KEY => $this->queryState,
         ];
     }
 }

@@ -61,7 +61,7 @@ class InterfaceBuilder
     {
         $interface = ModelInterfaceType::create(
             $modelType,
-            self::interfaceName($modelType->getName(), $this->getSchema()->getConfig())
+            InterfaceBuilder::interfaceName($modelType->getName(), $this->getSchema()->getConfig())
         )
             ->setTypeResolver([AbstractTypeResolver::class, 'resolveType']);
 
@@ -116,7 +116,7 @@ class InterfaceBuilder
         if (empty($commonFields)) {
             return $this;
         }
-        $baseInterface = InterfaceType::create(self::BASE_INTERFACE_NAME);
+        $baseInterface = InterfaceType::create(InterfaceBuilder::BASE_INTERFACE_NAME);
         foreach ($commonFields as $fieldName => $fieldType) {
             $baseInterface->addField(
                 FieldAccessor::singleton()->formatField($fieldName),

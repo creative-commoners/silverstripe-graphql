@@ -28,7 +28,7 @@ class FieldFilterRegistry implements FilterRegistryInterface
      * @return $this
      * @throws InvalidArgumentException
      */
-    public function addFilter(FieldFilterInterface $filter, ?string $identifier = null): self
+    public function addFilter(FieldFilterInterface $filter, ?string $identifier = null): FieldFilterRegistry
     {
         $id = $identifier ?: $filter->getIdentifier();
         if (!preg_match('/^[A-Za-z0-9_]+$/', $id ?? '')) {

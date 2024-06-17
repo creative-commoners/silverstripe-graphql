@@ -30,7 +30,7 @@ class RequestContextProvider implements ContextProvider
      */
     public static function get(array $context)
     {
-        return $context[self::HTTP_METHOD] ?? null;
+        return $context[RequestContextProvider::HTTP_METHOD] ?? null;
     }
 
     /**
@@ -46,7 +46,7 @@ class RequestContextProvider implements ContextProvider
         }
 
         return [
-            self::HTTP_METHOD => $method,
+            RequestContextProvider::HTTP_METHOD => $method,
         ];
     }
 }

@@ -20,7 +20,7 @@ class ScalarDBField implements ModelTypePlugin
 
     public function getIdentifier(): string
     {
-        return self::IDENTIFIER;
+        return ScalarDBField::IDENTIFIER;
     }
 
     /**

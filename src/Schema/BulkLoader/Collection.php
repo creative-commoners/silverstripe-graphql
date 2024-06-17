@@ -31,7 +31,7 @@ class Collection
      * @return $this
      * @throws Exception
      */
-    public function setManifest(array $manifest): self
+    public function setManifest(array $manifest): Collection
     {
         $this->manifest = $manifest;
 
@@ -42,7 +42,7 @@ class Collection
      * @param string $class
      * @return $this
      */
-    public function removeClass(string $class): self
+    public function removeClass(string $class): Collection
     {
         unset($this->manifest[$class]);
 
@@ -53,7 +53,7 @@ class Collection
      * @param string $path
      * @return $this
      */
-    public function removeFile(string $path): self
+    public function removeFile(string $path): Collection
     {
         $class = array_search($path, $this->manifest ?? []);
         unset($this->manifest[$class]);

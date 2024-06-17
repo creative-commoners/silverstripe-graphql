@@ -74,7 +74,7 @@ class QueryCachingMiddleware implements QueryMiddleware, Flushable
         return $this->cache;
     }
 
-    public function setCache(CacheInterface $cache): self
+    public function setCache(CacheInterface $cache): QueryCachingMiddleware
     {
         $this->cache = $cache;
         return $this;

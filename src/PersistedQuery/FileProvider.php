@@ -65,7 +65,7 @@ class FileProvider implements PersistedQueryMappingProvider
         return isset($mapping[$queryID]) ? $mapping[$queryID] : null;
     }
 
-    public function setSchemaMapping(array $mapping): self
+    public function setSchemaMapping(array $mapping): FileProvider
     {
         $this->schemaToPath = $mapping;
 

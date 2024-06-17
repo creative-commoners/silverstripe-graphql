@@ -206,7 +206,7 @@ class Field implements
      * @param callable|null $callback
      * @return Field
      */
-    public function addArg(string $argName, $config, ?callable $callback = null): self
+    public function addArg(string $argName, $config, ?callable $callback = null): Field
     {
         $argObj = $config instanceof Argument ? $config : Argument::create($argName, $config);
         $this->args[$argObj->getName()] = $argObj;
@@ -221,7 +221,7 @@ class Field implements
      * @return $this
      * @throws SchemaBuilderException
      */
-    public function setArgs(array $args): self
+    public function setArgs(array $args): Field
     {
         Schema::assertValidConfig($args);
         foreach ($args as $argName => $config) {
@@ -238,7 +238,7 @@ class Field implements
      * @param Field $field
      * @return Field
      */
-    public function mergeWith(Field $field): self
+    public function mergeWith(Field $field): Field
     {
         foreach ($field->getArgs() as $arg) {
             $this->args[$arg->getName()] = clone $arg;
@@ -282,7 +282,7 @@ class Field implements
      * @return Field
      * @throws SchemaBuilderException
      */
-    public function setType($type, $required = false): self
+    public function setType($type, $required = false): Field
     {
         Schema::invariant(
             !is_array($type),
@@ -306,7 +306,7 @@ class Field implements
      * @param string $modelTypeDef
      * @return $this
      */
-    public function setTypeAsModel(string $modelTypeDef): self
+    public function setTypeAsModel(string $modelTypeDef): Field
     {
         $this->typeAsModel = $modelTypeDef;
 
@@ -333,7 +333,7 @@ class Field implements
      * @param string $name
      * @return Field
      */
-    public function setName(string $name): self
+    public function setName(string $name): Field
     {
         $this->name = $name;
         return $this;
@@ -387,7 +387,7 @@ class Field implements
      * @return $this
      * @throws SchemaBuilderException
      */
-    public function setNamedType(string $name): self
+    public function setNamedType(string $name): Field
     {
         $currentType = $this->getType();
         $newType = preg_replace('/[A-Za-z_0-9]+/', $name ?? '', $currentType ?? '');
@@ -431,7 +431,7 @@ class Field implements
      * @param string|null $description
      * @return Field
      */
-    public function setDescription(?string $description): self
+    public function setDescription(?string $description): Field
     {
         $this->description = $description;
         return $this;
@@ -449,7 +449,7 @@ class Field implements
      * @param array|string|ResolverReference|null $resolver
      * @return Field
      */
-    public function setResolver($resolver): self
+    public function setResolver($resolver): Field
     {
         if ($resolver) {
             $this->resolver = $resolver instanceof ResolverReference
@@ -474,7 +474,7 @@ class Field implements
      * @param array|null $resolverContext
      * @return Field
      */
-    public function setResolverContext(?array $resolverContext): self
+    public function setResolverContext(?array $resolverContext): Field
     {
         $this->resolverContext = $resolverContext;
         return $this;
@@ -485,7 +485,7 @@ class Field implements
      * @param $value
      * @return Field
      */
-    public function addResolverContext(string $key, $value): self
+    public function addResolverContext(string $key, $value): Field
     {
         $this->resolverContext[$key] = $value;
 
@@ -497,7 +497,7 @@ class Field implements
      * @param array|null $context
      * @return $this
      */
-    public function addResolverMiddleware($resolver, ?array $context = null): self
+    public function addResolverMiddleware($resolver, ?array $context = null): Field
     {
         return $this->decorateResolver(EncodedResolver::MIDDLEWARE, $resolver, $context);
     }
@@ -507,7 +507,7 @@ class Field implements
      * @param array|null $context
      * @return $this
      */
-    public function addResolverAfterware($resolver, ?array $context = null): self
+    public function addResolverAfterware($resolver, ?array $context = null): Field
     {
         return $this->decorateResolver(EncodedResolver::AFTERWARE, $resolver, $context);
     }
@@ -575,7 +575,7 @@ class Field implements
      * @param array|null $context
      * @return Field
      */
-    private function decorateResolver(string $position, $resolver, ?array $context = null): self
+    private function decorateResolver(string $position, $resolver, ?array $context = null): Field
     {
         if ($resolver) {
             $ref = $resolver instanceof ResolverReference

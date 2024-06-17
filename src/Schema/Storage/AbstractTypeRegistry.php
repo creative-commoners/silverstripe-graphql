@@ -47,7 +47,7 @@ abstract class AbstractTypeRegistry
         try {
             return static::fromCache($typename);
         } catch (Exception $e) {
-            if (!preg_match('/(Missing|Unknown) graphql/', $e->getMessage()) || !self::canRebuildOnMissing()) {
+            if (!preg_match('/(Missing|Unknown) graphql/', $e->getMessage()) || !AbstractTypeRegistry::canRebuildOnMissing()) {
                 throw $e;
             }
             // Try to rebuild the whole schema as fallback.
@@ -59,7 +59,7 @@ abstract class AbstractTypeRegistry
             $schema = $builder->boot($key);
             try {
                 $builder->build($schema, true);
-                $path = self::getRebuildOnMissingPath();
+                $path = AbstractTypeRegistry::getRebuildOnMissingPath();
                 file_put_contents($path, time());
             } catch (EmptySchemaException $e) {
                 // noop
@@ -77,16 +77,16 @@ abstract class AbstractTypeRegistry
         ) {
             return false;
         }
-        if (!self::config()->get('rebuild_on_missing_schema_file')) {
+        if (!static::config()->get('rebuild_on_missing_schema_file')) {
             return false;
         }
-        $path = self::getRebuildOnMissingPath();
+        $path = static::getRebuildOnMissingPath();
         if (!(is_writable(dirname($path)))) {
             return false;
         }
         if (file_exists($path)) {
             $lastRebuildTimestamp = (int) trim(file_get_contents($path));
-            $minInterval = self::config()->get('rebuild_on_missing_schema_file_minimum_interval');
+            $minInterval = static::config()->get('rebuild_on_missing_schema_file_minimum_interval');
             if ((time() - $lastRebuildTimestamp) < $minInterval) {
                 return false;
             }
@@ -96,7 +96,7 @@ abstract class AbstractTypeRegistry
 
     private static function getRebuildOnMissingPath(): string
     {
-        return static::getSourceDirectory() . DIRECTORY_SEPARATOR . self::getRebuildOnMissingFilename();
+        return static::getSourceDirectory() . DIRECTORY_SEPARATOR . AbstractTypeRegistry::getRebuildOnMissingFilename();
     }
 
     private static function getRebuildOnMissingFilename(): string

@@ -60,7 +60,7 @@ class CreateCreator implements OperationCreator, InputTypeProvider
         if (!$mutationName) {
             $mutationName = 'create' . ucfirst($typeName ?? '');
         }
-        $inputTypeName = self::inputTypeName($typeName);
+        $inputTypeName = CreateCreator::inputTypeName($typeName);
 
         return ModelMutation::create($model, $mutationName)
             ->setType($typeName)
@@ -151,7 +151,7 @@ class CreateCreator implements OperationCreator, InputTypeProvider
             }
         }
         $inputType = InputType::create(
-            self::inputTypeName($modelType->getName()),
+            CreateCreator::inputTypeName($modelType->getName()),
             [
                 'fields' => $fieldMap
             ]
@@ -172,7 +172,7 @@ class CreateCreator implements OperationCreator, InputTypeProvider
      * @param FieldAccessor $fieldAccessor
      * @return CreateCreator
      */
-    public function setFieldAccessor(FieldAccessor $fieldAccessor): self
+    public function setFieldAccessor(FieldAccessor $fieldAccessor): CreateCreator
     {
         $this->fieldAccessor = $fieldAccessor;
         return $this;

@@ -105,7 +105,7 @@ class HTTPProvider implements PersistedQueryMappingProvider
         return isset($mapping[$queryID]) ? $mapping[$queryID] : null;
     }
 
-    public function setSchemaMapping(array $mapping): self
+    public function setSchemaMapping(array $mapping): HTTPProvider
     {
         foreach ($mapping as $schemaKey => $url) {
             if (!filter_var($url, FILTER_VALIDATE_URL)) {
@@ -128,7 +128,7 @@ class HTTPProvider implements PersistedQueryMappingProvider
         return $this->schemaToURL;
     }
 
-    public function setClient(HTTPClient $client): self
+    public function setClient(HTTPClient $client): HTTPProvider
     {
         $this->client = $client;
 

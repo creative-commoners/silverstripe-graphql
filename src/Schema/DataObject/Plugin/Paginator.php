@@ -23,7 +23,7 @@ class Paginator extends PaginationPlugin
 
     public function getIdentifier(): string
     {
-        return self::IDENTIFIER;
+        return Paginator::IDENTIFIER;
     }
 
     public static function paginate(array $context): Closure

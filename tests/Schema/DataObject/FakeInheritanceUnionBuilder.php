@@ -14,8 +14,8 @@ class FakeInheritanceUnionBuilder extends InheritanceUnionBuilder implements Tes
 
     public static function reset()
     {
-        self::$createCalls = [];
-        self::$applyCalls = [];
+        FakeInheritanceUnionBuilder::$createCalls = [];
+        FakeInheritanceUnionBuilder::$applyCalls = [];
     }
 
     public function createUnions(ModelType $type): InheritanceUnionBuilder

@@ -32,7 +32,7 @@ class QuerySort extends AbstractQuerySortPlugin
 
     public function getIdentifier(): string
     {
-        return self::IDENTIFIER;
+        return QuerySort::IDENTIFIER;
     }
 
     protected function getResolver(array $config): callable
@@ -108,7 +108,7 @@ class QuerySort extends AbstractQuerySortPlugin
                 return $list;
             }
 
-            $sortArgs = self::getSortArgs($info, $args, $fieldName);
+            $sortArgs = QuerySort::getSortArgs($info, $args, $fieldName);
             $paths = NestedInputBuilder::buildPathsFromArgs($sortArgs);
             if (empty($paths)) {
                 return $list;

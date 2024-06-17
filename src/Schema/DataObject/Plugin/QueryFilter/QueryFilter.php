@@ -33,7 +33,7 @@ class QueryFilter extends AbstractQueryFilterPlugin
      */
     public function getIdentifier(): string
     {
-        return self::IDENTIFIER;
+        return QueryFilter::IDENTIFIER;
     }
 
     protected function getResolver(array $config): callable

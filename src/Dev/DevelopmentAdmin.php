@@ -62,7 +62,7 @@ class DevelopmentAdmin extends Controller implements PermissionProvider
 
             echo '<div class="options"><ul>';
             $evenOdd = "odd";
-            foreach (self::get_links() as $action => $description) {
+            foreach (DevelopmentAdmin::get_links() as $action => $description) {
                 echo "<li class=\"$evenOdd\"><a href=\"{$base}dev/graphql/$action\"><b>/dev/graphql/$action:</b>"
                     . " $description</a></li>\n";
                 $evenOdd = ($evenOdd == "odd") ? "even" : "odd";
@@ -74,7 +74,7 @@ class DevelopmentAdmin extends Controller implements PermissionProvider
         } else {
             echo "SILVERSTRIPE CMS GRAPHQL TOOLS\n--------------------------\n\n";
             echo "You can execute any of the following commands:\n\n";
-            foreach (self::get_links() as $action => $description) {
+            foreach (DevelopmentAdmin::get_links() as $action => $description) {
                 echo "  sake dev/graphql/$action: $description\n";
             }
             echo "\n\n";

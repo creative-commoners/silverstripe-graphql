@@ -11,7 +11,7 @@ class NamespaceLoader extends AbstractBulkLoader
 
     public static function getIdentifier(): string
     {
-        return self::IDENTIFIER;
+        return NamespaceLoader::IDENTIFIER;
     }
 
     public function collect(Collection $collection): Collection
