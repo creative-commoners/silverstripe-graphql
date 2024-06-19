@@ -12,7 +12,7 @@ trait SortTrait
     private static function getSortArgs(ResolveInfo $info, array $args, string $fieldName): array
     {
         $sortArgs = [];
-        $sortOrder = self::getSortOrder($info, $fieldName);
+        $sortOrder = self::class::getSortOrder($info, $fieldName);
 
         foreach ($sortOrder as $orderName) {
             if (!isset($args[$fieldName][$orderName])) {
