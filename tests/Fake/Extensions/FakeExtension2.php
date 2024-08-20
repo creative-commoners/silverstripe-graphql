@@ -3,9 +3,9 @@
 
 namespace SilverStripe\GraphQL\Tests\Fake\Extensions;
 
-use SilverStripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 
-class FakeExtension2 extends DataExtension
+class FakeExtension2 extends Extension
 {
 
 }
