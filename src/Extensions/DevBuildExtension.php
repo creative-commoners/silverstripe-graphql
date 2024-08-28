@@ -9,12 +9,12 @@ use SilverStripe\Core\Injector\Injector;
 use SilverStripe\GraphQL\Dev\Build;
 use SilverStripe\GraphQL\Schema\Logger;
 use SilverStripe\ORM\DatabaseAdmin;
-use SilverStripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 
 /**
- * @extends DataExtension<DatabaseAdmin>
+ * @extends Extension<DatabaseAdmin>
  */
-class DevBuildExtension extends DataExtension
+class DevBuildExtension extends Extension
 {
     use Configurable;
 
