@@ -1,0 +1,25 @@
+modelConfig:
+  DataObject:
+    plugins:
+      versioning:
+        before: inheritance
+    operations:
+      copyToStage:
+        class: SilverStripe\GraphQL\Modules\Versioned\Operations\CopyToStageCreator
+      publish:
+        class: SilverStripe\GraphQL\Modules\Versioned\Operations\PublishCreator
+      unpublish:
+        class: SilverStripe\GraphQL\Modules\Versioned\Operations\UnpublishCreator
+      rollback:
+        class: SilverStripe\GraphQL\Modules\Versioned\Operations\RollbackCreator
+      read:
+        plugins:
+          readVersion:
+            before: paginateList
+      readOne:
+        plugins:
+          readVersion:
+            before: firstResult
+      delete:
+        plugins:
+          unpublishOnDelete: true

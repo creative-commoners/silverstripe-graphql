@@ -8,6 +8,26 @@ use SilverStripe\Security\SecurityToken;
 
 class CSRFMiddlewareTest extends BaseMiddlewareProcessTest
 {
+    private bool $securityTokenWasEnabled = false;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        // CSRF token check is normally disabled for unit-tests
+        $this->securityTokenWasEnabled = SecurityToken::is_enabled();
+        if (!$this->securityTokenWasEnabled) {
+            SecurityToken::enable();
+        }
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+        if (!$this->securityTokenWasEnabled) {
+            SecurityToken::disable();
+        }
+    }
+
     public function testItDoesntDoAnythingIfNotAMutation()
     {
         $this->assertEquals('resolved', $this->simulateMiddlewareProcess(
