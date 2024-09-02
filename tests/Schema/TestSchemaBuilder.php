@@ -13,6 +13,7 @@ use SilverStripe\GraphQL\Schema\Field\Query;
 use SilverStripe\GraphQL\Schema\Logger;
 use SilverStripe\GraphQL\Schema\Schema;
 use SilverStripe\GraphQL\Schema\SchemaBuilder;
+use SilverStripe\GraphQL\Schema\Services\SchemaTranscribeHandler;
 
 class TestSchemaBuilder extends SchemaBuilder
 {
@@ -101,7 +102,9 @@ class TestSchemaBuilder extends SchemaBuilder
                 'properties' => [
                     'handlers' => [
                         'graphqlTranscribe' => [
-                            'off' => ['graphqlSchemaBuild']
+                            'off' => ['graphqlSchemaBuild'],
+                            'on' => ['graphqlSchemaBuild'],
+                            'handler' => '%$' . SchemaTranscribeHandler::class,
                         ],
                     ],
                 ],
