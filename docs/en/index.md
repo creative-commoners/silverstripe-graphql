@@ -1,3 +1,9 @@
+---
+title: GraphQL
+summary: GraphQL can be used as a content API layer for Silverstripe CMS
+icon: project-diagram
+---
+
 # Silverstripe CMS GraphQL server
 
 GraphQL can be used as a content API layer for Silverstripe CMS to get data in and out of the content management system.
