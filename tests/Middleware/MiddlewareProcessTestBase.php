@@ -9,7 +9,7 @@ use SilverStripe\Dev\SapphireTest;
 use SilverStripe\GraphQL\Middleware\QueryMiddleware;
 use SilverStripe\GraphQL\Schema\Schema as SchemaSchema;
 
-abstract class BaseMiddlewareProcessTest extends SapphireTest
+abstract class MiddlewareProcessTestBase extends SapphireTest
 {
     /**
      * @var callable

@@ -32,7 +32,7 @@ class DBDateArgsTest extends SapphireTest
     public function testResolve()
     {
         $fake = $this->getMockBuilder(DBDate::class)
-            ->setMethods(['Nice'])
+            ->onlyMethods(['Nice'])
             ->getMock();
         $fake->expects($this->once())
             ->method('Nice');

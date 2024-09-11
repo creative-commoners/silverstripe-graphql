@@ -10,6 +10,7 @@ use SilverStripe\Assets\Folder;
 use SilverStripe\Dev\SapphireTest;
 use Silverstripe\Assets\Dev\TestAssetStore;
 use SilverStripe\GraphQL\Schema\Schema;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
  * Most of the search functionality is covered in {@link FileFilterInputTypeCreatorTest}
@@ -38,7 +39,7 @@ class ReadFileUsageQueryCreatorTest extends SapphireTest
         parent::tearDown();
     }
 
-    public function fileUsageDataProvider()
+    public static function fileUsageDataProvider()
     {
         return [
             [File::class, 'rootfile', 2, 'rootfile file is used twice'],
@@ -50,12 +51,12 @@ class ReadFileUsageQueryCreatorTest extends SapphireTest
     }
 
     /**
-     * @dataProvider fileUsageDataProvider
      * @param string $class
      * @param string $fixture
      * @param int|false $expectedCount
      * @param $message
      */
+    #[DataProvider('fileUsageDataProvider')]
     public function testUsageCount(string $class, string $fixture, $expectedCount, $message)
     {
         $id = $this->idFromFixture($class, $fixture);

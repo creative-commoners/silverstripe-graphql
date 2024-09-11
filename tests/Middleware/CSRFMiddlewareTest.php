@@ -6,7 +6,7 @@ use Exception;
 use SilverStripe\GraphQL\Middleware\CSRFMiddleware;
 use SilverStripe\Security\SecurityToken;
 
-class CSRFMiddlewareTest extends BaseMiddlewareProcessTest
+class CSRFMiddlewareTest extends MiddlewareProcessTestBase
 {
     private bool $securityTokenWasEnabled = false;
 

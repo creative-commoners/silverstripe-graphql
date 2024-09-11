@@ -33,11 +33,20 @@ class DBHTMLTextArgsTest extends SapphireTest
     public function testResolve()
     {
         $fake = $this->getMockBuilder(DBHTMLText::class)
-            ->setMethods(['setProcessShortcodes'])
+            ->onlyMethods(['setProcessShortcodes'])
             ->getMock();
-        $fake->expects($this->exactly(4))
+        $matcher = $this->exactly(4);
+        $fake->expects($matcher)
             ->method('setProcessShortcodes')
-            ->withConsecutive([true], [false], [false], [true]);
+            ->willReturnCallback(function (bool $process) use ($fake, $matcher) {
+                match ($matcher->numberOfInvocations()) {
+                    1 => $this->assertSame(true, $process),
+                    2 => $this->assertSame(false, $process),
+                    3 => $this->assertSame(false, $process),
+                    4 => $this->assertSame(true, $process),
+                };
+                return $fake;
+            });
 
         $trueConfig = new SchemaConfig();
         $trueConfig->set('modelConfig.DataObject', ['parseShortcodes' => true]);

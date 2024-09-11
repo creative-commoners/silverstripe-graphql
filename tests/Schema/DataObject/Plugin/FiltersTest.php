@@ -15,19 +15,21 @@ use SilverStripe\GraphQL\Schema\DataObject\Plugin\QueryFilter\Filters\LessThanOr
 use SilverStripe\GraphQL\Schema\DataObject\Plugin\QueryFilter\Filters\NotEqualFilter;
 use SilverStripe\GraphQL\Schema\DataObject\Plugin\QueryFilter\Filters\StartsWithFilter;
 use SilverStripe\ORM\ArrayList;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class FiltersTest extends SapphireTest
 {
-    private array $values = [
+    /**
+     * @internal
+     */
+    private static array $values = [
         'string' => 'test',
         'array' => ['a', 'b'],
         'number' => 42,
         'null' => null
     ];
 
-    /**
-     * @dataProvider filterArgumentsProvider
-     */
+    #[DataProvider('filterArgumentsProvider')]
     public function testFilterArguments(FieldFilterInterface $filter, string $identifier, array $params): void
     {
         $this->assertEquals($identifier, $filter->getIdentifier());
@@ -40,58 +42,58 @@ class FiltersTest extends SapphireTest
         }
     }
 
-    public function filterArgumentsProvider(): array
+    public static function filterArgumentsProvider(): array
     {
         return [
             [
                 new ContainsFilter(),
                 'contains',
-                array_slice($this->values, 0, 2, true)
+                array_slice(FiltersTest::$values, 0, 2, true)
             ],
             [
                 new EndsWithFilter(),
                 'endswith',
-                array_slice($this->values, 0, 2, true)
+                array_slice(FiltersTest::$values, 0, 2, true)
             ],
             [
                 new EqualToFilter(),
                 'eq',
-                $this->values
+                FiltersTest::$values
             ],
             [
                 new GreaterThanFilter(),
                 'gt',
-                $this->values
+                FiltersTest::$values
             ],
             [
                 new GreaterThanOrEqualFilter(),
                 'gte',
-                $this->values
+                FiltersTest::$values
             ],
             [
                 new InFilter(),
                 'in',
-                $this->values['array']
+                FiltersTest::$values['array']
             ],
             [
                 new LessThanFilter(),
                 'lt',
-                $this->values
+                FiltersTest::$values
             ],
             [
                 new LessThanOrEqualFilter(),
                 'lte',
-                $this->values
+                FiltersTest::$values
             ],
             [
                 new NotEqualFilter(),
                 'ne',
-                $this->values
+                FiltersTest::$values
             ],
             [
                 new StartsWithFilter(),
                 'startswith',
-                array_slice($this->values, 0, 2, true)
+                array_slice(FiltersTest::$values, 0, 2, true)
             ]
         ];
     }

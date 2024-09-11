@@ -44,6 +44,7 @@ use GraphQL\Validator\Rules\QueryComplexity;
 use GraphQL\Validator\Rules\QueryDepth;
 use GraphQL\Validator\ValidationContext;
 use ReflectionClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class IntegrationTest extends SapphireTest
 {
@@ -418,7 +419,7 @@ GRAPHQL;
         $this->assertMissingField($result, 'title');
     }
 
-    public function provideFilterAndSort(): array
+    public static function provideFilterAndSort(): array
     {
         return [
             [
@@ -508,9 +509,7 @@ GRAPHQL;
         ];
     }
 
-    /**
-     * @dataProvider provideFilterAndSort
-     */
+    #[DataProvider('provideFilterAndSort')]
     public function testFilterAndSort(string $query, string $testAgainst, string $placeholderRecord, string $expected): void
     {
         $dir = '_' . __FUNCTION__;
@@ -671,7 +670,7 @@ GRAPHQL;
         $this->assertResult('readOneDataObjectFake.author', null, $result);
     }
 
-    public function provideFilterAndSortOnlyRead(): array
+    public static function provideFilterAndSortOnlyRead(): array
     {
         return [
           'read with sort' => [
@@ -797,9 +796,7 @@ GRAPHQL;
         ];
     }
 
-    /**
-     * @dataProvider provideFilterAndSortOnlyRead
-     */
+    #[DataProvider('provideFilterAndSortOnlyRead')]
     public function testFilterAndSortOnlyRead(string $fixture, string $query, array $expected)
     {
         $author = Member::create(['FirstName' => 'tester1']);
@@ -847,7 +844,7 @@ GRAPHQL;
         $this->assertResults($expected, $records);
     }
 
-    public function provideFilterAndSortWithArgsOnlyRead(): array
+    public static function provideFilterAndSortWithArgsOnlyRead(): array
     {
         return [
             'read with sort - with sort arg' => [
@@ -900,9 +897,7 @@ GRAPHQL,
         ];
     }
 
-    /**
-     * @dataProvider provideFilterAndSortWithArgsOnlyRead
-     */
+    #[DataProvider('provideFilterAndSortWithArgsOnlyRead')]
     public function testFilterAndSortWithArgsOnlyRead(string $fixture, string $query, array $args, array $expected)
     {
         $author = Member::create(['FirstName' => 'tester1']);
@@ -1157,9 +1152,9 @@ GRAPHQL;
     /**
      * @throws SchemaBuilderException
      * @throws SchemaNotFoundException
-     * @dataProvider provideObfuscationState
      * @param bool $shouldObfuscateTypes
      */
+    #[DataProvider('provideObfuscationState')]
     public function testQueriesAndMutations($shouldObfuscateTypes)
     {
         FakeProductPage::get()->removeAll();
@@ -1502,7 +1497,7 @@ GRAPHQL;
     /**
      * @return array
      */
-    public function provideObfuscationState(): array
+    public static function provideObfuscationState(): array
     {
         return [ [false], [true] ];
     }
@@ -1577,9 +1572,7 @@ GRAPHQL;
         );
     }
 
-    /**
-     * @dataProvider provideDefaultDepthLimit
-     */
+    #[DataProvider('provideDefaultDepthLimit')]
     public function testDefaultDepthLimit(int $queryDepth, int $limit)
     {
         // This global rule should be ignored.
@@ -1593,14 +1586,12 @@ GRAPHQL;
         }
     }
 
-    public function provideDefaultDepthLimit()
+    public static function provideDefaultDepthLimit()
     {
-        return $this->createProviderForComplexityOrDepth(15);
+        return IntegrationTest::createProviderForComplexityOrDepth(15);
     }
 
-    /**
-     * @dataProvider provideCustomDepthLimit
-     */
+    #[DataProvider('provideCustomDepthLimit')]
     public function testCustomDepthLimit(int $queryDepth, int $limit)
     {
         // This global rule should be ignored.
@@ -1614,14 +1605,12 @@ GRAPHQL;
         }
     }
 
-    public function provideCustomDepthLimit()
+    public static function provideCustomDepthLimit()
     {
-        return $this->createProviderForComplexityOrDepth(25);
+        return IntegrationTest::createProviderForComplexityOrDepth(25);
     }
 
-    /**
-     * @dataProvider provideCustomComplexityLimit
-     */
+    #[DataProvider('provideCustomComplexityLimit')]
     public function testCustomComplexityLimit(int $queryComplexity, int $limit)
     {
         // This global rule should be ignored.
@@ -1635,37 +1624,33 @@ GRAPHQL;
         }
     }
 
-    public function provideCustomComplexityLimit()
+    public static function provideCustomComplexityLimit()
     {
-        return $this->createProviderForComplexityOrDepth(10);
+        return IntegrationTest::createProviderForComplexityOrDepth(10);
     }
 
-    /**
-     * @dataProvider provideDefaultNodeLimit
-     */
+    #[DataProvider('provideDefaultNodeLimit')]
     public function testDefaultNodeLimit(int $numNodes, int $limit)
     {
         $schema = $this->createSchema(new TestSchemaBuilder(['_' . __FUNCTION__]));
         $this->runNodeLimitTest($numNodes, $limit, $schema);
     }
 
-    public function provideDefaultNodeLimit()
+    public static function provideDefaultNodeLimit()
     {
-        return $this->createProviderForComplexityOrDepth(500);
+        return IntegrationTest::createProviderForComplexityOrDepth(500);
     }
 
-    /**
-     * @dataProvider provideCustomNodeLimit
-     */
+    #[DataProvider('provideCustomNodeLimit')]
     public function testCustomNodeLimit(int $numNodes, int $limit)
     {
         $schema = $this->createSchema(new TestSchemaBuilder(['_' . __FUNCTION__]));
         $this->runNodeLimitTest($numNodes, $limit, $schema);
     }
 
-    public function provideCustomNodeLimit()
+    public static function provideCustomNodeLimit()
     {
-        return $this->createProviderForComplexityOrDepth(200);
+        return IntegrationTest::createProviderForComplexityOrDepth(200);
     }
 
     public function testGlobalRuleNotRemoved()
@@ -1694,7 +1679,7 @@ GRAPHQL;
         $reflectionValidator->setStaticPropertyValue('rules', $rules);
     }
 
-    private function createProviderForComplexityOrDepth(int $limit): array
+    private static function createProviderForComplexityOrDepth(int $limit): array
     {
         return [
             'far less than limit' => [1, $limit],

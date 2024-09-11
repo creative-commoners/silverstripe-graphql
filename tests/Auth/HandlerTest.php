@@ -8,6 +8,7 @@ use SilverStripe\GraphQL\Auth\Handler;
 use SilverStripe\GraphQL\Tests\Fake\BrutalAuthenticatorFake;
 use SilverStripe\GraphQL\Tests\Fake\FalsyAuthenticatorFake;
 use SilverStripe\GraphQL\Tests\Fake\PushoverAuthenticatorFake;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
  * @package silverstripe-graphql
@@ -65,7 +66,6 @@ class HandlerTest extends SapphireTest
 
     /**
      * Test that an exception is thrown if an authenticator is configured that doesn't implement the interface
-     *
      */
     public function testExceptionThrownWhenAuthenticatorDoesNotImplementAuthenticatorInterface()
     {
@@ -80,8 +80,8 @@ class HandlerTest extends SapphireTest
      *
      * @param array  $authenticators
      * @param string $expected
-     * @dataProvider prioritisedAuthenticatorProvider
      */
+    #[DataProvider('prioritisedAuthenticatorProvider')]
     public function testAuthenticatorsCanBePrioritised($authenticators, $expected)
     {
         Handler::config()->set('authenticators', $authenticators);
@@ -92,7 +92,7 @@ class HandlerTest extends SapphireTest
     /**
      * @return array
      */
-    public function prioritisedAuthenticatorProvider()
+    public static function prioritisedAuthenticatorProvider()
     {
         return [
             [
@@ -128,7 +128,6 @@ class HandlerTest extends SapphireTest
 
     /**
      * Ensure that an failed authentication attempt throws an exception
-     *
      */
     public function testFailedAuthenticationThrowsException()
     {
@@ -142,7 +141,6 @@ class HandlerTest extends SapphireTest
      * Ensure that when a falsy value is returned from an authenticator (when it should throw
      * an exception on failure) that a sensible default message is used in a ValidationException
      * instead.
-     *
      */
     public function testFailedAuthenticationWithFalsyReturnValueThrowsDefaultException()
     {

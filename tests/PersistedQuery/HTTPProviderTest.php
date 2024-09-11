@@ -33,7 +33,7 @@ class HTTPProviderTest extends SapphireTest
     public function testHTTPRequests()
     {
         $mock = $this->getMockBuilder(HTTPClient::class)
-            ->setMethods(['getURL'])
+            ->onlyMethods(['getURL'])
             ->getMock();
         $mock->expects($this->once())
             ->method('getURL')
