@@ -46,7 +46,7 @@ class SchemaTest extends SapphireTest
     {
         $mock = $this->getMockBuilder(Schema::class)
             ->setConstructorArgs(['test', $this->createSchemaContext()])
-            ->setMethods(['addType', 'addInterface', 'addUnion', 'addModel', 'addEnum', 'addScalar'])
+            ->onlyMethods(['addType', 'addInterface', 'addUnion', 'addModel', 'addEnum', 'addScalar'])
             ->getMock();
         $mock
             ->expects($this->exactly(3))
@@ -148,7 +148,7 @@ class SchemaTest extends SapphireTest
         $schema->addType($type = Type::create('MyType'));
         $mock = $this->getMockBuilder(Type::class)
             ->setConstructorArgs(['DupeType'])
-            ->setMethods(['mergeWith'])
+            ->onlyMethods(['mergeWith'])
             ->getMock();
             $mock->expects($this->once())
                 ->method('mergeWith')
@@ -192,7 +192,7 @@ class SchemaTest extends SapphireTest
         $schema->addInterface($int = InterfaceType::create('MyType'));
         $mock = $this->getMockBuilder(InterfaceType::class)
             ->setConstructorArgs(['DupeType'])
-            ->setMethods(['mergeWith'])
+            ->onlyMethods(['mergeWith'])
             ->getMock();
         $mock->expects($this->once())
             ->method('mergeWith')
@@ -213,7 +213,7 @@ class SchemaTest extends SapphireTest
         $schema->addUnion($int = UnionType::create('MyType'));
         $mock = $this->getMockBuilder(UnionType::class)
             ->setConstructorArgs(['DupeType'])
-            ->setMethods(['mergeWith'])
+            ->onlyMethods(['mergeWith'])
             ->getMock();
         $mock->expects($this->once())
             ->method('mergeWith')

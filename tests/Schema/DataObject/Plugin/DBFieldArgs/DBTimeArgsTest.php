@@ -33,7 +33,7 @@ class DBTimeArgsTest extends SapphireTest
     public function testResolve()
     {
         $fake = $this->getMockBuilder(DBTime::class)
-            ->setMethods(['Nice'])
+            ->onlyMethods(['Nice'])
             ->getMock();
         $fake->expects($this->once())
             ->method('Nice');

@@ -13,7 +13,7 @@ class DBFieldArgsTest extends SapphireTest
     public function testBaseFormatResolver()
     {
         $fake = $this->getMockBuilder(DBText::class)
-            ->setMethods(['FirstSentence'])
+            ->onlyMethods(['FirstSentence'])
             ->getMock();
         $fake->expects($this->once())
             ->method('FirstSentence');

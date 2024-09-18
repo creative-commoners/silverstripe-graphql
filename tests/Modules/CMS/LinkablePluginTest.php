@@ -10,6 +10,7 @@ use SilverStripe\GraphQL\Schema\DataObject\DataObjectModel;
 use SilverStripe\GraphQL\Schema\Field\ModelQuery;
 use SilverStripe\GraphQL\Schema\Schema;
 use SilverStripe\GraphQL\Schema\SchemaConfig;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class LinkablePluginTest extends SapphireTest
 {
@@ -24,8 +25,8 @@ class LinkablePluginTest extends SapphireTest
 
     /**
      * @param bool $list
-     * @dataProvider provideApply
      */
+    #[DataProvider('provideApply')]
     public function testApply(bool $list)
     {
         $query = new ModelQuery(
@@ -102,7 +103,7 @@ class LinkablePluginTest extends SapphireTest
     }
 
 
-    public function provideApply()
+    public static function provideApply()
     {
         return [
             [true],

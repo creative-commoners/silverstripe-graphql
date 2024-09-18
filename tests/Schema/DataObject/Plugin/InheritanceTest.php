@@ -35,6 +35,7 @@ use SilverStripe\GraphQL\Tests\Schema\DataObject\FakeInheritanceUnionBuilder;
 use SilverStripe\GraphQL\Tests\Schema\DataObject\FakeInterfaceBuilder;
 use SilverStripe\GraphQL\Tests\Schema\DataObject\TestSchema;
 use SilverStripe\ORM\DataObject;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class InheritanceTest extends SapphireTest
 {
@@ -62,8 +63,8 @@ class InheritanceTest extends SapphireTest
      * @param false $unions
      * @throws \ReflectionException
      * @throws SchemaBuilderException
-     * @dataProvider provideUnionOption
      */
+    #[DataProvider('provideUnionOption')]
     public function testInheritance($unions = false)
     {
         $schema = new TestSchema();
@@ -168,7 +169,7 @@ class InheritanceTest extends SapphireTest
         $this->assertEmpty(array_diff($compare ?? [], $expected), 'Actual calls exceed the expected calls');
     }
 
-    public function provideUnionOption()
+    public static function provideUnionOption()
     {
         return [
             [true],

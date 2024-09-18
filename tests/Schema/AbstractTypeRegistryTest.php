@@ -11,6 +11,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use ReflectionObject;
 use stdClass;
 use SilverStripe\Control\Session;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class AbstractTypeRegistryTest extends SapphireTest
 {
@@ -50,9 +51,7 @@ class AbstractTypeRegistryTest extends SapphireTest
         );
     }
 
-    /**
-     * @dataProvider provideRebuildOnMissing
-     */
+    #[DataProvider('provideRebuildOnMissing')]
     public function testRebuildOnMissing(
         bool $controller,
         bool $autobuild,
@@ -93,7 +92,7 @@ class AbstractTypeRegistryTest extends SapphireTest
         $this->assertSame($expected, $canRebuildOnMissingMethod->invoke($registry));
     }
 
-    public function provideRebuildOnMissing(): array
+    public static function provideRebuildOnMissing(): array
     {
         // controller = current controller is a GraphQLController
         // autobuild = if autobuild is enabled

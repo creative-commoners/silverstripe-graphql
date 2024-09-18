@@ -32,7 +32,7 @@ class DBTextArgsTest extends SapphireTest
     public function testResolve()
     {
         $fake = $this->getMockBuilder(DBText::class)
-            ->setMethods(['FirstParagraph'])
+            ->onlyMethods(['FirstParagraph'])
             ->getMock();
         $fake->expects($this->once())
             ->method('FirstParagraph');
@@ -44,7 +44,7 @@ class DBTextArgsTest extends SapphireTest
         DBTextArgs::resolve($fake, ['format' => 'FirstParagraph', 'limit' => 5], []);
 
         $fake = $this->getMockBuilder(DBText::class)
-            ->setMethods(['LimitSentences'])
+            ->onlyMethods(['LimitSentences'])
             ->getMock();
         $fake->expects($this->once())
             ->method('LimitSentences')

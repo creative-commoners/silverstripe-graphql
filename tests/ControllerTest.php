@@ -9,12 +9,13 @@ use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Dev\SapphireTest;
 use SilverStripe\GraphQL\Controller;
 use SilverStripe\ORM\DB;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class ControllerTest extends SapphireTest
 {
     protected $usesDatabase = false;
 
-    public function providePrepareBacktrace()
+    public static function providePrepareBacktrace()
     {
         $querySource = <<<'GRAPHQL'
             query ReadFiles($filter: FakeInputType!) {
@@ -152,9 +153,7 @@ class ControllerTest extends SapphireTest
         ];
     }
 
-    /**
-     * @dataProvider providePrepareBacktrace
-     */
+    #[DataProvider('providePrepareBacktrace')]
     public function testPrepareBacktrace(array $trace, array $expected)
     {
         $controller = new Controller(__FUNCTION__);
