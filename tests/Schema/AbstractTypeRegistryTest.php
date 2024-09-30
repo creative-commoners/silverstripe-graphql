@@ -139,7 +139,7 @@ class AbstractTypeRegistryTest extends SapphireTest
 
     private function getInstance()
     {
-        $registry = new Class extends AbstractTypeRegistry
+        $registry = new class extends AbstractTypeRegistry
         {
             protected static function getSourceDirectory(): string
             {
